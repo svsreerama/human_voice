@@ -1,44 +1,103 @@
-# 🎙️ Human Voice Gender Classifier
-
-A machine learning web application that classifies human voices as **Male** or **Female** using extracted audio features. Built using Python, scikit-learn, and deployed with Streamlit.
+# 🎙️ Human Voice Gender Classification — Project Report
 
 ---
 
-## 📌 Project Overview
+## 🧠 Problem Statement
 
-This project processes pre-extracted audio features and uses a trained Random Forest model to classify gender.
-
-### 🔍 Use Cases
-- Call center analytics
-- Voice-based authentication
-- Media and accessibility tools
+Develop a machine learning-based system that can classify and cluster human voice samples by gender using extracted audio features.
 
 ---
 
-## 🧠 Features
+## 📊 Business Use Cases
 
-- Reads voice features from CSV
-- Predicts gender (0 = Female, 1 = Male)
-- Displays:
-  - Prediction table
-  - Gender distribution summary
-  - Pie chart visualization
+1. **Call Center Analytics** – Segment calls by gender for insights.
+2. **Speaker Identification** – Part of multi-modal biometric systems.
+3. **Speech Analytics** – Use gender trends for behavioral analysis.
+4. **Accessibility** – Improve assistive technology interfaces.
 
 ---
 
-## 📂 File Structure
-```bash
-human-voice-gender/
-│
-├── app.py                   # Streamlit app
-├── step1_load_data.py       # Data loading
-├── step2_clean_data.py      # Data inspection
-├── step3_normalize_data.py  # Scaling features
-├── step4_split_data.py      # Train-test split
-├── step5_train_model.py     # Train classifier
-├── step6_save_model.py      # Save model and scaler
-├── make_input.py            # Create input_features.csv (no label)
-├── voice_model.pkl          # Trained model
-├── scaler.pkl               # Saved scaler
-├── vocal_gender_features_new.csv  # Full dataset
-└── input_features.csv       # For predictions
+## 🗃️ Dataset Overview
+
+* **File:** `vocal_gender_features_new.csv`
+* **Rows:** \~16,000+
+* **Columns:** 44 (audio features + label)
+* **Label:** `0 = Female`, `1 = Male`
+
+### Features include:
+
+* Spectral properties (`centroid`, `bandwidth`, `contrast`)
+* Pitch statistics (`mean`, `std`, `min`, `max`)
+* MFCCs (`mfcc_1_mean` to `mfcc_13_std`)
+* Energy & zero-crossing rate
+
+---
+
+## 🧹 Data Preprocessing
+
+* Checked for missing/null values (✅ none found)
+* Normalized all features using `StandardScaler`
+* Separated features and label column
+* Used `train_test_split` (80/20 ratio)
+
+---
+
+## 🧠 Model Development
+
+* **Model Used:** `RandomForestClassifier` (from scikit-learn)
+
+* **Why Random Forest?**
+
+  * Handles feature noise well
+  * Robust to overfitting
+  * Fast and accurate
+
+* **Accuracy:** `99.4%` on test set
+
+---
+
+## 🔍 Key Model Findings
+
+* ✅ **High Accuracy**: Random Forest achieved **\~99.4% accuracy**, showing features are highly predictive.
+* ✅ **Balanced Classification**: Predictions showed a nearly equal split of male and female voices.
+* ✅ **Clean Dataset**: No missing values and fully numeric features.
+* ✅ **Likely Important Features**: Pitch, MFCCs, and spectral attributes contribute significantly.
+* ✅ **Model is Robust**: No overfitting observed, and no hyperparameter tuning needed.
+* ✅ **Functional App**: Streamlit UI gives real-time predictions and visualization.
+
+---
+
+## 💾 Model Persistence
+
+* Saved trained model as `voice_model.pkl`
+* Saved feature scaler as `scaler.pkl`
+
+---
+
+## 🌐 Streamlit Web App
+
+### Key Features:
+
+* Upload CSV file with audio features (no label)
+* Get predicted gender for each voice sample
+* Display:
+
+  * Predictions table
+  * Summary count
+  * Pie chart visualization
+
+### Tools:
+
+* `streamlit`, `pandas`, `scikit-learn`, `matplotlib`, `joblib`
+
+---
+
+## 📈 Final Results
+
+* Predictions: 0 (Female), 1 (Male)
+* Visualization: Pie chart showing distribution
+* UI: Clean interface to drag/drop CSV and get results instantly
+
+
+
+
